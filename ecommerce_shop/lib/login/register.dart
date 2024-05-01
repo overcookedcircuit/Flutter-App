@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -11,26 +12,28 @@ class CreateAccountPage extends StatefulWidget {
 class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _passConfirmController = TextEditingController();
 
-  void _create(){
-    String _email = _emailController.text.trim();
-    String _password = _passwordController.text.trim();
-    String _confirmPass = _passConfirmController.text.trim();
-
-    if (_password == _confirmPass) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Account created successfully')),
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Account creation failed')),
-      );
-    }
+  void _createUser() async {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        // User created successfully
+        print('User created: ${userCredential.user}');
+        // You can navigate to another page or perform other actions here
+      } catch (e) {
+        // Error creating user
+        print('Failed to create user: $e');
+        // You can show an error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to create user: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
   }
 
   @override
@@ -55,13 +58,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               obscureText: true,
             ),
             SizedBox(height: 25.0,),
-            TextField(
-              controller: _passConfirmController,
-              decoration: InputDecoration(labelText: "Confirm Password"),
-              obscureText: true,
-            ),
-            SizedBox(height: 25.0,),
-            ElevatedButton(onPressed: _create, child: Text("Create Account")),
+            ElevatedButton(onPressed: _createUser, child: Text("Create Account")),
           ],
         ),
       ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264533350463",
+    "project_id": "flutterapp-dc065",
+    "storage_bucket": "flutterapp-dc065.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264533350463:android:561c12dfe18993dbd6808a",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjCzgOjNIrDLGhlUi5CR74YqDE_2Pq8IA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
