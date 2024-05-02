@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerce_shop/login/onBoardScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
 
-void main(){
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: 'AIzaSyCjCzgOjNIrDLGhlUi5CR74YqDE_2Pq8IA',
+        appId: '1:264533350463:android:561c12dfe18993dbd6808a',
+        messagingSenderId: '264533350463',
+        projectId: 'flutterapp-dc065'
+    )
+  );
   runApp(const MyApp());
 }
 

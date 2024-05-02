@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '/FireAuthService.dart';
 import 'login.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -13,27 +14,35 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  void _createUser() async {
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
-        // User created successfully
-        print('User created: ${userCredential.user}');
-        // You can navigate to another page or perform other actions here
-      } catch (e) {
-        // Error creating user
-        print('Failed to create user: $e');
-        // You can show an error message to the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to create user: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+  final FirebaseAuthService _authentication = FirebaseAuthService();
+
+  void _signUp() async {
+    String email = _emailController.text;
+    String pass = _passwordController.text;
+
+    User? user = await _authentication.signUp(email, pass);
+    if (user != null){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User created successfully'),
+          backgroundColor: Colors.greenAccent,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to create user'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,7 +67,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               obscureText: true,
             ),
             SizedBox(height: 25.0,),
-            ElevatedButton(onPressed: _createUser, child: Text("Create Account")),
+            ElevatedButton(onPressed: _signUp, child: Text("Create Account")),
           ],
         ),
       ),
