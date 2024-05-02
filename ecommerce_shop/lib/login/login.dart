@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
+import 'package:ecommerce_shop/FireAuthService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:ecommerce_shop/Home/homePage.dart';
 
 //This is the login page when a user has an account
@@ -14,22 +17,30 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
-    String _email = _emailController.text.trim();
-    String _password = _passwordController.text.trim();
+  final FirebaseAuthService _authentication = FirebaseAuthService();
 
-    // Check for valid credentials (for demonstration purpose, hardcoded)
-    if (_email == '123@gmail.com' && _password == '123') {
+  void _signIn() async {
+    String email = _emailController.text;
+    String pass = _passwordController.text;
+
+    User? user = await _authentication.signIn(email, pass);
+    if (user != null){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login successful')),
+        SnackBar(
+          content: Text('User logged in successfully'),
+          backgroundColor: Colors.greenAccent,
+        ),
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(email: _email)),
+        MaterialPageRoute(builder: (context) => HomePage(email: email)),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed')),
+        SnackBar(
+          content: Text('Failed to login'),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -57,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 32.0),
             ElevatedButton(
-              onPressed: _login,
+              onPressed: _signIn,
               child: Text('Login'),
             ),
             ElevatedButton(
