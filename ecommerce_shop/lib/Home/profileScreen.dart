@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../login/login.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -18,7 +21,7 @@ class ProfilePage extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage('Your_Image_URL_Here'),
+                  backgroundImage: NetworkImage('pfp.png'),
                 ),
                 SizedBox(height: 16),
                 Text(
@@ -88,11 +91,14 @@ class ProfilePage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.people_outline),
-            title: Text('Invite Friends'),
+            leading: Icon(CupertinoIcons.xmark),
+            title: Text('Logout'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
-              // Handle tap
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );// Navigate to Login Page
             },
           ),
         ],
@@ -100,3 +106,4 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+

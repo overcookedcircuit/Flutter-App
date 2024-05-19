@@ -3,7 +3,7 @@ import 'package:ecommerce_shop/Home/category_tabs.dart';
 
 import '../profileScreen.dart';
 
-class MenCatalog extends StatelessWidget {
+class KidCatalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +20,10 @@ class MenCatalog extends StatelessWidget {
       ),
       body: Column(
         children: [
-          CategoryTabs(selectedIndex: 0),
+          CategoryTabs(selectedIndex: 2),
           Expanded(
             child: Center(
-              child: Text('Men\'s items will be displayed here.'),
+              child: Text('Kids\' items will be displayed here.'),
             ),
           ),
         ],
