@@ -10,7 +10,15 @@ class KidCatalog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kids\' Catalog'),
+        title: Text('Categories'),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ));
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -34,7 +42,7 @@ class KidCatalog extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return ListTile(
-                        leading: Image.network(product.imageUrl, fit: BoxFit.cover),
+                        leading: Image.asset(product.imageUrl, fit: BoxFit.cover),
                         title: Text(product.name),
                         subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
                         onTap: () {
