@@ -100,12 +100,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: InputDecoration(labelText: "email"),
             ),
             SizedBox(height: 25.0,),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: InputDecoration(labelText: "password"),
               obscureText: true,
             ),
             SizedBox(height: 25.0,),

@@ -60,6 +60,34 @@ dev_dependencies:
 flutter:
   assets:
     - assets/pfp.png
+    - assets/men_shoe.jpg
+    - assets/men_boot.jpg
+    #- assets/men_running_shoe.png
+    #- assets/men_dress_shoe.png
+    #- assets/men_loafers.png
+    #- assets/men_sandal.png
+    #- assets/men_hiking_boot.png
+    #- assets/men_flip_flops.png
+    #- assets/women_heel.png
+    #- assets/women_flat.png
+    #- assets/women_sneaker.png
+    #- assets/women_boot.png
+    #- assets/women_flats.png
+    #- assets/women_ankle_boots.png
+    #- assets/women_ballet_flats.png
+    #- assets/women_moccasins.png
+    #- assets/women_sandals.png
+    #- assets/women_wedges.png
+    #- assets/kids_sandal.png
+    #- assets/kids_shoe.png
+    #- assets/kids_slipper.png
+    #- assets/kids_running_shoe.png
+    #- assets/kids_sneakers.png
+    #- assets/kids_formal_shoe.png
+    #- assets/kids_snow_boots.png
+    #- assets/kids_sneakers2.png
+    #- assets/kids_slippers2.png
+    #- assets/kids_dress_shoes.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
