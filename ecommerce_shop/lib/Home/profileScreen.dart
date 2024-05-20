@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../login/login.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? email = user?.email;
+
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
         title: Text('Profile'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -25,12 +28,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'Ayush Patel',
+                  email ?? 'No email available',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'joy@augustin.com',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
             ),
@@ -94,11 +93,13 @@ class ProfilePage extends StatelessWidget {
             leading: Icon(CupertinoIcons.xmark),
             title: Text('Logout'),
             trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.pushReplacement(
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
-              );// Navigate to Login Page
+                    (Route<dynamic> route) => false,
+              );
             },
           ),
         ],
@@ -106,4 +107,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
