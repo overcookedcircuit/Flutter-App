@@ -10,22 +10,14 @@ class WomenCatalog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories'),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ProfilePage(),
-            ));
-          },
-        ),
+        title: Text('Women\'s Catalog'),
       ),
       body: Column(
         children: [
           CategoryTabs(selectedIndex: 1),
           Expanded(
             child: FutureBuilder<List<Product>>(
-              future: loadProducts(),
+              future: fetchProducts(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -42,7 +34,7 @@ class WomenCatalog extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return ListTile(
-                        leading: Image.asset(product.imageUrl, fit: BoxFit.cover),
+                        leading: Image.network(product.imageUrl, fit: BoxFit.cover),
                         title: Text(product.name),
                         subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
                         onTap: () {
