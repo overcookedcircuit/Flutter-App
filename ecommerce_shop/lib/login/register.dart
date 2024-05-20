@@ -22,6 +22,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
     // Check if the email already exists in Firestore
     bool emailExists = await _checkIfEmailExists(email);
+    print('Email exists: $emailExists');
 
     if (emailExists) {
       // If the email exists, show a Snackbar and return
@@ -38,12 +39,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     try {
       User? user = await _authentication.signUp(email, pass);
       if (user != null) {
-        // Add user details to Firestore
-        await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+        print('User created: ${user.uid}');
+        // Add user details to Firestore using the user's UID as the document ID
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
           'email': email,
           'password': pass,
         });
 
+        // Show the Snackbar after the Firestore write operation completes
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('User created successfully'),
@@ -51,6 +54,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           ),
         );
       } else {
+        print('User creation failed');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to create user'),
@@ -59,6 +63,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         );
       }
     } catch (e) {
+      print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error: $e'),
@@ -72,7 +77,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   // Function to check if the email already exists in Firestore
   Future<bool> _checkIfEmailExists(String email) async {
     final QuerySnapshot result = await FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .where('email', isEqualTo: email)
         .limit(1)
         .get();
@@ -100,12 +105,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: "email"),
+              decoration: InputDecoration(labelText: "Email"),
             ),
             SizedBox(height: 25.0,),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: "password"),
+              decoration: InputDecoration(labelText: "Password"),
               obscureText: true,
             ),
             SizedBox(height: 25.0,),
