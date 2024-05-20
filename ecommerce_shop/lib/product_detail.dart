@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_model.dart';
+import 'cart.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -18,7 +19,7 @@ class ProductDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
-              child: Image.asset(
+              child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
                 height: 300,
@@ -44,7 +45,10 @@ class ProductDetailPage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Implement Add to Cart functionality here
+                  Cart().addToCart(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Added to Cart')),
+                  );
                 },
                 child: Text('Add to Cart'),
               ),

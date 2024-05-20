@@ -25,7 +25,7 @@ class WomenCatalog extends StatelessWidget {
           CategoryTabs(selectedIndex: 1),
           Expanded(
             child: FutureBuilder<List<Product>>(
-              future: loadProducts(),
+              future: fetchProducts(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
