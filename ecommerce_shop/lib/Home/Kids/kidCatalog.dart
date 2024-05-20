@@ -5,7 +5,20 @@ import '../category_tabs.dart';
 import 'package:ecommerce_shop/product_detail.dart';
 import 'package:ecommerce_shop/Home/profileScreen.dart';
 
-class KidCatalog extends StatelessWidget {
+class KidCatalog extends StatefulWidget {
+  @override
+  _KidCatalogState createState() => _KidCatalogState();
+}
+
+class _KidCatalogState extends State<KidCatalog> {
+  late Future<List<Product>> _productsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _productsFuture = fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +38,7 @@ class KidCatalog extends StatelessWidget {
           CategoryTabs(selectedIndex: 2),
           Expanded(
             child: FutureBuilder<List<Product>>(
-              future: fetchProducts(),
+              future: _productsFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -41,10 +54,7 @@ class KidCatalog extends StatelessWidget {
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      return ListTile(
-                        leading: Image.asset(product.imageUrl, fit: BoxFit.cover),
-                        title: Text(product.name),
-                        subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                      return GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -52,6 +62,52 @@ class KidCatalog extends StatelessWidget {
                             ),
                           );
                         },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.5, // Set the height to half the screen
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Image.network(
+                                  product.imageUrl,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        product.name,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8.0),
+                                      Text(
+                                        '\$${product.price.toStringAsFixed(2)}',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8.0),
+                                      Text(
+                                        product.description,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   );
