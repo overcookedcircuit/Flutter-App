@@ -55,9 +55,9 @@ class OnBoardScreen extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                );// Navigate to Login Page
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                ); // Navigate to Login Page
               },
               child: Text('Get Started'),
             ),
