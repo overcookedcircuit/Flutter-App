@@ -19,7 +19,7 @@ class ProductDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
-              child: Image.network(
+              child: Image.asset(
                 product.imageUrl,
                 fit: BoxFit.cover,
                 height: 300,
