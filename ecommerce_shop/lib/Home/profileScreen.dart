@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../order_page.dart';
 import '../login/login.dart';
+import 'package:ecommerce_shop/help_page.dart';
+import 'package:ecommerce_shop/terms_page.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -38,28 +40,13 @@ class ProfilePage extends StatelessWidget {
           ListTile(
             title: Text('Account', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
-          ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Payment Options'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              // Handle tap
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.flag),
-            title: Text('Country'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              // Handle tap
-            },
-          ),
+
           ListTile(
             leading: Icon(Icons.history),
             title: Text('Order History'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
-              // Handle tap
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => OrderPage()));
             },
           ),
           ListTile(
@@ -80,6 +67,7 @@ class ProfilePage extends StatelessWidget {
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               // Handle tap
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpPage()));
             },
           ),
           ListTile(
@@ -88,6 +76,7 @@ class ProfilePage extends StatelessWidget {
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               // Handle tap
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsPage()));
             },
           ),
           ListTile(

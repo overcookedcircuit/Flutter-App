@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'cart_service.dart';
 import 'product_model.dart';
+import 'order_page.dart';
 
 class CheckoutPage extends StatelessWidget {
   @override
@@ -33,12 +34,6 @@ class CheckoutPage extends StatelessWidget {
                         leading: Image.asset(product.imageUrl, width: 50, height: 50),
                         title: Text(product.name),
                         subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
-                        trailing: IconButton(
-                          icon: Icon(Icons.remove_shopping_cart),
-                          onPressed: () async {
-                            await CartService().removeFromCart(product.product_id);
-                          },
-                        ),
                       );
                     },
                   ),
@@ -54,8 +49,9 @@ class CheckoutPage extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       ElevatedButton(
-                        onPressed: () {
-                          // Simulate checkout process
+                        onPressed: () async {
+                          await CartService().createOrder(cartItems, totalPrice);
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => OrderPage()));
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Checkout successful!')),
                           );
