@@ -68,7 +68,7 @@ class _MenCatalogState extends State<MenCatalog> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Image.network(
+                                child: Image.asset(
                                   product.imageUrl,
                                   fit: BoxFit.cover,
                                   width: double.infinity,

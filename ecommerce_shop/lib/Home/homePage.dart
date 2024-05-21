@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          CategoryTabs(selectedIndex: 0), // Default to Men category for the homepage
+          CategoryTabs(selectedIndex: 4), // Default to Men category for the homepage
           Expanded(
             child: Center(
               child: Text('Welcome to the Home Page'),

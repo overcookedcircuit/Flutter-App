@@ -62,32 +62,34 @@ flutter:
     - assets/pfp.png
     - assets/men_shoe.jpg
     - assets/men_boot.jpg
-    #- assets/men_running_shoe.png
-    #- assets/men_dress_shoe.png
-    #- assets/men_loafers.png
-    #- assets/men_sandal.png
-    #- assets/men_hiking_boot.png
-    #- assets/men_flip_flops.png
-    #- assets/women_heel.png
-    #- assets/women_flat.png
-    #- assets/women_sneaker.png
-    #- assets/women_boot.png
-    #- assets/women_flats.png
-    #- assets/women_ankle_boots.png
-    #- assets/women_ballet_flats.png
-    #- assets/women_moccasins.png
-    #- assets/women_sandals.png
-    #- assets/women_wedges.png
-    #- assets/kids_sandal.png
-    #- assets/kids_shoe.png
-    #- assets/kids_slipper.png
-    #- assets/kids_running_shoe.png
-    #- assets/kids_sneakers.png
-    #- assets/kids_formal_shoe.png
-    #- assets/kids_snow_boots.png
-    #- assets/kids_sneakers2.png
-    #- assets/kids_slippers2.png
-    #- assets/kids_dress_shoes.png
+    - assets/men_running_shoe.jpg
+    - assets/men_dress_shoe.jpg
+    - assets/men_loafers.jpg
+    - assets/men_sandal.jpg
+    - assets/men_hiking_boot.jpg
+    - assets/men_flip_flops.jpg
+    - assets/men_chelsea_boots.jpg
+    - assets/men_oxfords.jpg
+    - assets/women_heel.jpg
+    - assets/women_flat.jpg
+    - assets/women_sneaker.jpg
+    - assets/women_boot.jpg
+    - assets/women_flats.jpg
+    - assets/women_ankle_boots.jpg
+    - assets/women_ballet_flats.jpg
+    - assets/women_moccasins.jpg
+    - assets/women_sandals.jpg
+    - assets/women_wedges.jpg
+    - assets/kids_sandal.jpg
+    - assets/kids_shoe.jpg
+    - assets/kids_slipper.jpg
+    - assets/kids_running_shoe.jpg
+    - assets/kids_sneakers.jpg
+    - assets/kids_formal_shoe.jpg
+    - assets/kids_snow_boots.jpg
+    - assets/kids_sneakers2.jpg
+    - assets/kids_slippers2.jpg
+    - assets/kids_dress_shoes.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
