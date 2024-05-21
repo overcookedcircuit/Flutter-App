@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerce_shop/Home/profileScreen.dart';
 import 'package:ecommerce_shop/Home/category_tabs.dart';
+import 'package:ecommerce_shop/Home/cartPage.dart'; // Assuming you have a CartPage
 
 class HomePage extends StatefulWidget {
   final String email;
@@ -29,6 +30,14 @@ class _HomePageState extends State<HomePage> {
             ));
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -43,3 +52,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

@@ -4,6 +4,7 @@ import 'package:ecommerce_shop/product_model.dart';
 import '../category_tabs.dart';
 import 'package:ecommerce_shop/product_detail.dart';
 import 'package:ecommerce_shop/Home/profileScreen.dart';
+import 'package:ecommerce_shop/Home/cartPage.dart';
 
 class KidCatalog extends StatefulWidget {
   @override
@@ -32,6 +33,14 @@ class _KidCatalogState extends State<KidCatalog> {
             ));
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_model.dart';
-import 'cart.dart';
+import 'cart_service.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -44,8 +44,8 @@ class ProductDetailPage extends StatelessWidget {
             Spacer(),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  Cart().addToCart(product);
+                onPressed: () async {
+                  await CartService().addToCart(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Added to Cart')),
                   );
