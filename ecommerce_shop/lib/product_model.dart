@@ -31,7 +31,7 @@ class Product {
   factory Product.fromDocument(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return Product(
-      product_id: doc.id,
+      product_id: data['product_id'] ?? '',
       name: data['name'] ?? '',
       price: (data['price'] ?? 0).toDouble(),
       imageUrl: data['imageUrl'] ?? '',

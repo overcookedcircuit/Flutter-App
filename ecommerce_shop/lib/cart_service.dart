@@ -15,8 +15,19 @@ class CartService {
         'price': product.price,
         'imageUrl': product.imageUrl,
         'description': product.description,
+        'category': product.category,
         'quantity': 1,
       });
+    }
+  }
+
+  Future<void> removeFromCart(String productId) async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      final cartItems = await _db.collection('carts').doc(user.uid).collection('items').where('product_id', isEqualTo: productId).get();
+      for (var doc in cartItems.docs) {
+        await _db.collection('carts').doc(user.uid).collection('items').doc(doc.id).delete();
+      }
     }
   }
 

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '../cart_service.dart';
-import 'package:ecommerce_shop/product_model.dart';
-import '../checkout_page.dart';
+import 'cart_service.dart';
+import 'product_model.dart';
 
-class CartPage extends StatelessWidget {
+class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: Text('Checkout'),
       ),
       body: StreamBuilder<List<Product>>(
         stream: CartService().getCartItems(),
@@ -21,6 +20,8 @@ class CartPage extends StatelessWidget {
             return Center(child: Text('No items in cart'));
           } else {
             final cartItems = snapshot.data!;
+            double totalPrice = cartItems.fold(0, (sum, item) => sum + item.price);
+
             return Column(
               children: [
                 Expanded(
@@ -44,11 +45,24 @@ class CartPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPage()));
-                    },
-                    child: Text('Proceed to Checkout'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total: \$${totalPrice.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Simulate checkout process
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Checkout successful!')),
+                          );
+                        },
+                        child: Text('Proceed to Checkout'),
+                      ),
+                    ],
                   ),
                 ),
               ],
