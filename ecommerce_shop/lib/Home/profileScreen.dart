@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../login/login.dart';
 
@@ -66,7 +67,7 @@ class ProfilePage extends StatelessWidget {
             title: Text('Edit Profile'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
-              // Handle tap
+              _showChangePasswordDialog(context);
             },
           ),
           Divider(),
@@ -104,6 +105,86 @@ class ProfilePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showChangePasswordDialog(BuildContext context) {
+    final TextEditingController currentPasswordController = TextEditingController();
+    final TextEditingController newPasswordController = TextEditingController();
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Change Password'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: currentPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Current Password',
+                ),
+              ),
+              TextField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'New Password',
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                final currentPassword = currentPasswordController.text;
+                final newPassword = newPasswordController.text;
+
+                if (user != null) {
+                  try {
+                    final credential = EmailAuthProvider.credential(
+                      email: user.email!,
+                      password: currentPassword,
+                    );
+                    await user.reauthenticateWithCredential(credential);
+                    await user.updatePassword(newPassword);
+
+                    // Update the password in Firestore
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid)
+                        .update({'password': newPassword});
+
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Password updated successfully.'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  } catch (error) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Failed to update password: $error'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                }
+              },
+              child: Text('Change'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
