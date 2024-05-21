@@ -1,3 +1,4 @@
+import 'package:ecommerce_shop/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '/FireAuthService.dart';
@@ -52,6 +53,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             content: Text('User created successfully'),
             backgroundColor: Colors.greenAccent,
           ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
         );
       } else {
         print('User creation failed');
